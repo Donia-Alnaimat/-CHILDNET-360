@@ -1,9 +1,9 @@
 import json
-import faiss
-import numpy as np
+import math
+import re
 
 from pathlib import Path
-from sentence_transformers import SentenceTransformer
+from collections import Counter
 
 
 class ChildNetKnowledgeBase:
@@ -22,70 +22,180 @@ class ChildNetKnowledgeBase:
         )
 
         chunks_path = processed / "knowledge_chunks.json"
-        index_path = processed / "childnet_faiss.index"
 
         with open(chunks_path, encoding="utf-8") as f:
             self.chunks = json.load(f)
 
-        self.index = faiss.read_index(str(index_path))
+        # Lightweight BM25 index
+        # No PyTorch, SentenceTransformer, or FAISS loading
 
-        if self.index.ntotal != len(self.chunks):
-            raise ValueError(
-                "FAISS index and knowledge chunks do not match."
+        self.doc_counts = []
+        self.doc_lengths = []
+        self.doc_frequency = Counter()
+
+        for chunk in self.chunks:
+
+            searchable_text = (
+                str(chunk.get("document_name") or "")
+                + " "
+                + str(chunk.get("text") or "")
             )
 
-        self.model = SentenceTransformer(
-            "intfloat/multilingual-e5-small"
+            tokens = self._tokenize(searchable_text)
+
+            counts = Counter(tokens)
+
+            self.doc_counts.append(counts)
+            self.doc_lengths.append(len(tokens))
+
+            self.doc_frequency.update(counts.keys())
+
+        self.total_docs = len(self.chunks)
+
+        self.avg_doc_length = (
+            sum(self.doc_lengths) / self.total_docs
+            if self.total_docs
+            else 1.0
         )
+
+        print(
+            f"CHILDNET 360 BM25 ready: "
+            f"{self.total_docs} knowledge chunks."
+        )
+
+    @staticmethod
+    def _tokenize(text):
+
+        text = str(text or "").lower()
+
+        # Basic Arabic normalization
+        text = (
+            text.replace("أ", "ا")
+                .replace("إ", "ا")
+                .replace("آ", "ا")
+                .replace("ى", "ي")
+                .replace("ة", "ه")
+        )
+
+        return re.findall(r"[^\W_]+", text, re.UNICODE)
+
+    def _score(self, query_tokens, index):
+
+        counts = self.doc_counts[index]
+        doc_length = self.doc_lengths[index]
+
+        k1 = 1.5
+        b = 0.75
+
+        score = 0.0
+
+        for term in set(query_tokens):
+
+            frequency = counts.get(term, 0)
+
+            if frequency == 0:
+                continue
+
+            df = self.doc_frequency.get(term, 0)
+
+            idf = math.log(
+                1.0
+                + (
+                    self.total_docs - df + 0.5
+                ) / (df + 0.5)
+            )
+
+            denominator = (
+                frequency
+                + k1 * (
+                    1 - b
+                    + b * doc_length / self.avg_doc_length
+                )
+            )
+
+            score += (
+                idf
+                * frequency
+                * (k1 + 1)
+                / denominator
+            )
+
+        return score
+
+    def _format_result(self, index, score):
+
+        chunk = self.chunks[index]
+
+        return {
+            "chunk_id": chunk.get("chunk_id"),
+            "document": chunk.get("document_name"),
+            "page": chunk.get("page"),
+            "score": float(score),
+            "text": chunk.get("text", ""),
+            "jurisdiction": (
+                chunk.get("jurisdiction") or "UNCLASSIFIED"
+            ),
+            "authority": chunk.get(
+                "authority", "Unknown"
+            ),
+            "document_type": chunk.get(
+                "document_type", "reference"
+            ),
+            "source_url": chunk.get("source_url"),
+            "article_or_section": chunk.get(
+                "article_or_section"
+            )
+        }
+
+    def _search(self, query, top_k, allowed=None):
+
+        if not isinstance(query, str) or not query.strip():
+            raise ValueError(
+                "Query must be a non-empty string."
+            )
+
+        query_tokens = self._tokenize(query)
+
+        if not query_tokens:
+            return []
+
+        top_k = max(1, int(top_k))
+
+        scored = []
+
+        for index, chunk in enumerate(self.chunks):
+
+            if allowed is not None:
+
+                jurisdiction = str(
+                    chunk.get("jurisdiction")
+                    or "UNCLASSIFIED"
+                ).upper()
+
+                if jurisdiction not in allowed:
+                    continue
+
+            score = self._score(query_tokens, index)
+
+            if score > 0:
+                scored.append((score, index))
+
+        scored.sort(
+            key=lambda item: item[0],
+            reverse=True
+        )
+
+        return [
+            self._format_result(index, score)
+            for score, index in scored[:top_k]
+        ]
 
     def search(self, query, top_k=5):
 
-        if not isinstance(query, str) or not query.strip():
-            raise ValueError("Query must be a non-empty string.")
-
-        top_k = min(max(int(top_k), 1), len(self.chunks))
-
-        embedding = self.model.encode(
-            ["query: " + query],
-            normalize_embeddings=True
+        return self._search(
+            query=query,
+            top_k=top_k
         )
-
-        embedding = np.asarray(
-            embedding,
-            dtype="float32"
-        )
-
-        scores, indices = self.index.search(
-            embedding,
-            top_k
-        )
-
-        results = []
-
-        for score, idx in zip(scores[0], indices[0]):
-
-            if idx < 0:
-                continue
-
-            chunk = self.chunks[int(idx)]
-
-            results.append({
-                "chunk_id": chunk.get("chunk_id"),
-                "document": chunk.get("document_name"),
-                "page": chunk.get("page"),
-                "score": float(score),
-                "text": chunk.get("text", ""),
-                "jurisdiction": (
-                    chunk.get("jurisdiction") or "UNCLASSIFIED"
-                ),
-                "authority": chunk.get("authority", "Unknown"),
-                "document_type": chunk.get("document_type", "reference"),
-                "source_url": chunk.get("source_url"),
-                "article_or_section": chunk.get("article_or_section")
-            })
-
-        return results
-
 
     def search_by_jurisdiction(
         self,
@@ -93,19 +203,20 @@ class ChildNetKnowledgeBase:
         jurisdiction="UAE",
         top_k=5
     ):
-        """Search evidence within a selected jurisdiction."""
-
-        top_k = max(1, int(top_k))
-
-        results = self.search(
-            query,
-            top_k=len(self.chunks)
-        )
 
         groups = {
-            "UAE": {"UAE", "UAE_FEDERAL", "DUBAI"},
-            "GLOBAL": {"GLOBAL", "INTERNATIONAL"},
-            "DUBAI": {"DUBAI"}
+            "UAE": {
+                "UAE",
+                "UAE_FEDERAL",
+                "DUBAI"
+            },
+            "GLOBAL": {
+                "GLOBAL",
+                "INTERNATIONAL"
+            },
+            "DUBAI": {
+                "DUBAI"
+            }
         }
 
         jurisdiction = jurisdiction.upper()
@@ -115,12 +226,8 @@ class ChildNetKnowledgeBase:
             {jurisdiction}
         )
 
-        filtered = [
-            item
-            for item in results
-            if str(
-                item.get("jurisdiction") or "UNCLASSIFIED"
-            ).upper() in allowed
-        ]
-
-        return filtered[:top_k]
+        return self._search(
+            query=query,
+            top_k=top_k,
+            allowed=allowed
+        )
