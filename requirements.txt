@@ -3,8 +3,6 @@ uvicorn
 requests
 pydantic
 numpy
-pandas
-scikit-learn
 faiss-cpu
-sentence-transformers
-
+onnxruntime
+tokenizers
