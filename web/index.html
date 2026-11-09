@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CHILDNET 360 | بوابة المساعدة الآمنة</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <header class="topbar">
+
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"/>
+        <path class="tick" d="m8.5 12 2.5 2.5L16 9.5"/>
+      </svg>
+
+      <div>
+        <strong>CHILDNET</strong>
+        <span>The Human Network of Protection</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <span id="net-badge" class="badge" role="status">...</span>
+
+      <button
+        id="quick-exit"
+        class="exit"
+        type="button"
+        title="اضغط Esc مرتين للخروج السريع">
+        خروج سريع ✕
+      </button>
+    </div>
+
+      </header>
+
+<!-- CHILDNET 360 NAVIGATION -->
+<nav class="site-nav" aria-label="القائمة الرئيسية">
+
+  <a href="#child-portal">
+    🧒 بوابة الطفل
+  </a>
+
+  <a href="#monitoring-center">
+    🧠 مركز المتابعة
+  </a>
+
+  <a href="#ai-assistant">
+    🤖 المساعد الذكي
+  </a>
+
+  <a href="#policy-intelligence">
+    ⚖️ ذكاء السياسات
+  </a>
+
+  <a href="#scenario-lab">
+    🔬 مختبر السيناريوهات
+  </a>
+
+  <a href="#privacy-center">
+    🔒 الخصوصية
+  </a>
+
+  <a href="#reviewer-dashboard">
+    👩‍💻 لوحة المراجع
+  </a>
+
+</nav>
+
+<!-- MAIN -->
+<main class="shell">
+
+    <!-- SAFESIGNAL -->
+    <section class="card hero" id="child-portal">
+
+      <p class="eyebrow">SafeSignal · قناة المساعدة الآمنة</p>
+
+      <h1>
+        مش لحالك.<br>
+        المساعدة على بُعد ضغطة وحدة.
+      </h1>
+
+      <p class="lead">
+  بسرية تامة
+
+  <br><br>
+
+</p>
+
+      <div class="sos-wrap">
+
+        <button
+          id="sos"
+          class="sos"
+          type="button"
+          aria-label="إرسال إشارة تجريبية">
+
+          <span class="ring" aria-hidden="true"></span>
+          <span class="ring r2" aria-hidden="true"></span>
+
+          <span class="sos-core">
+            <b>SOS</b>
+            <small> </small>
+          </span>
+
+        </button>
+
+      </div>
+
+      <label class="urgent">
+
+        <input type="checkbox" id="urgent">
+
+        <span class="switch" aria-hidden="true"></span>
+
+        <span>
+          أنا بخطر <b>الآن</b>
+          <small></small>
+        </span>
+
+      </label>
+
+    </section>
+
+
+    <!-- HELP OPTIONS -->
+    <section class="card options" aria-label="خيارات اختيارية">
+
+      <div class="group">
+
+        <h2>
+          شو نوع المشكلة؟
+          <em>اختياري</em>
+        </h2>
+
+        <div
+          class="chips"
+          id="help-types"
+          role="radiogroup"
+          aria-label="نوع المشكلة">
+        </div>
+
+      </div>
+
+      <div class="group">
+
+        <h2>
+          الفئة العمرية
+          <em>اختياري</em>
+        </h2>
+
+        <div
+          class="chips"
+          id="age-bands"
+          role="radiogroup"
+          aria-label="الفئة العمرية">
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RECEIPT -->
+    <section
+      id="receipt"
+      class="card receipt"
+      hidden
+      aria-live="polite">
+
+      <div class="tick-big" aria-hidden="true">✓</div>
+
+      <div>
+
+        <h2 id="receipt-title">
+          تمت معالجة الإشارة 
+        </h2>
+
+        <p id="receipt-msg"></p>
+
+        <ol class="steps">
+          <li class="done">إنشاء الإشارة </li>
+          <li class="done">استجابة الخادم </li>
+          <li>لا يوجد تدخل بشري أو بلاغ فعلي</li>
+        </ol>
+
+      </div>
+
+    </section>
+
+
+    <!-- SIGNAL CODE -->
+    <section class="card signal" aria-label="رمز الإشارة">
+
+      <div class="signal-head">
+
+        <h2>رمز SafeSignal</h2>
+
+        <button
+          id="copy"
+          class="ghost"
+          type="button">
+          نسخ
+        </button>
+
+      </div>
+
+      <code id="code" dir="ltr">
+        SS1|·|·|AR|·|······|····
+      </code>
+
+      <p class="hint">
+  <strong>SafeSignal Communication Protocol</strong><br>
+
+  بروتوكول إشارات منخفض البيانات مصمم لدعم
+  قنوات الاتصال الرقمية وعمليات المعالجة الآمنة.
+
+  <br>
+
+  <small>
+    القناة الحالية تعمل عبر الويب.
+    تكامل SMS وUSSD يتطلب تفعيل خدمات مشغل اتصالات
+    أو مزود معتمد.
+  </small>
+</p>
+    </section>
+
+
+    <!-- QUEUE -->
+    <section class="card queue" aria-label="الطلبات المعلّقة">
+
+      <div class="signal-head">
+
+        <h2>
+          الطلبات المعلّقة
+          <span id="count" class="count">0</span>
+        </h2>
+
+        <button
+          id="retry"
+          class="primary"
+          type="button">
+          🔄 إعادة محاولة الإرسال
+        </button>
+
+      </div>
+
+      <ul id="queue" class="queue-list"></ul>
+
+      <p id="empty" class="empty">
+        لا توجد طلبات معلّقة.
+      </p>
+
+    </section>
+
+
+    <!-- AI POLICY ASSISTANT -->
+    <section class="card" id="ai-assistant">
+
+      <p class="eyebrow">
+        CHILDNET 360 · AI POLICY AGENT
+      </p>
+
+      <h2>🤖 المساعد الذكي للسياسات</h2>
+
+      <p class="lead">
+        اطرح سؤالًا حول حماية الأطفال على الإنترنت،
+        ومسؤوليات شركات الاتصالات، والسياسات والتنظيمات ذات الصلة.
+      </p>
+
+      <form id="agent-chat-form">
+
+        <label for="agent-chat-question">
+          سؤالك
+        </label>
+
+        <textarea
+          id="agent-chat-question"
+          rows="4"
+          maxlength="1000"
+          required
+          placeholder="ما مسؤوليات شركات الاتصالات في حماية الأطفال؟"
+        ></textarea>
+
+        <button
+          type="submit"
+          id="agent-chat-submit"
+          class="primary">
+          🔍 تحليل السياسات
+        </button>
+
+      </form>
+
+      <div
+        id="agent-chat-status"
+        role="status"
+        aria-live="polite">
+      </div>
+
+      <div id="agent-chat-answer"></div>
+
+      <div id="agent-chat-sources"></div>
+
+      <p class="hint">
+        أداة تجريبية لتحليل السياسات واسترجاع الأدلة.
+        قد تكون الإجابات غير مكتملة ولا تُعد استشارة قانونية.
+        يُرجى عدم إدخال معلومات شخصية عن أطفال.
+      </p>
+
+    </section>
+
+
+    <!-- ====================================== -->
+<!-- MONITORING CENTER -->
+<!-- ====================================== -->
+
+<section class="card platform-section" id="monitoring-center">
+
+  <p class="eyebrow">
+    CHILDNET 360 · MONITORING CENTER
+  </p>
+
+  <h2>🧠 مركز المتابعة</h2>
+
+  <p class="section-description">
+ لمتابعة إشارات المساعدة
+    ومراقبة مراحل المعالجة،
+    واستعراض قرارات وكلاء الذكاء الاصطناعي.
+  </p>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-box">
+      <span>📨</span>
+      <h3>إشارات المساعدة</h3>
+      <p>عرض الطلبات المسجلة.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🤖</span>
+      <h3>قرارات الوكلاء</h3>
+      <p>متابعة القرارات الناتجة عن محاكاة النظام.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🚨</span>
+      <h3>تقييم الأولوية</h3>
+      <p>استعراض مستويات الأولوية للحالات </p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>📋</span>
+      <h3>سجل الأحداث</h3>
+      <p>متابعة التسلسل الزمني لمعالجة الطلبات.</p>
+    </div>
+
+  </div>
+
+  <div id="monitoring-results" class="platform-results">
+    سيتم ربط بيانات مركز المتابعة بالـBackend.
+  </div>
+
+</section>
+
+
+<!-- ====================================== -->
+<!-- POLICY INTELLIGENCE -->
+<!-- ====================================== -->
+
+<section class="card platform-section" id="policy-intelligence">
+
+  <p class="eyebrow">
+    CHILDNET 360 · POLICY INTELLIGENCE
+  </p>
+
+  <h2>⚖️ ذكاء السياسات والتنظيمات</h2>
+
+  <p class="section-description">
+    تحليل الأطر التنظيمية المتعلقة بسلامة الأطفال
+    في البيئة الرقمية، ومقارنة الأدلة الإماراتية
+    بالمعايير والإرشادات الدولية.
+  </p>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-box">
+      <span>🇦🇪</span>
+      <h3>UAE Regulations</h3>
+      <p>التشريعات والسياسات الإماراتية.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🌍</span>
+      <h3>Global Frameworks</h3>
+      <p>الأطر والإرشادات الدولية.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🔎</span>
+      <h3>Policy Gap Analysis</h3>
+      <p>مقارنة الأدلة وتحديد المسائل التي تستدعي المراجعة.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>📑</span>
+      <h3>Evidence & Citations</h3>
+      <p>عرض الوثائق والمراجع القانونية.</p>
+    </div>
+
+  </div>
+
+  <div class="platform-controls">
+
+  <button
+    type="button"
+    id="run-policy-analysis"
+    class="primary">
+    ⚖️ تشغيل تحليل السياسات
+  </button>
+
+</div>
+
+<div
+  id="policy-results"
+  class="platform-results"
+  role="status"
+  aria-live="polite">
+
+  اضغطي على الزر لاسترجاع تحليل السياسات من الخادم.
+
+</div>
+</section>
+
+
+<!-- ====================================== -->
+<!-- SCENARIO LAB -->
+<!-- ====================================== -->
+
+<section class="card platform-section" id="scenario-lab">
+
+  <p class="eyebrow">
+    CHILDNET 360 · MULTI-AGENT SIMULATION
+  </p>
+
+  <h2>🔬 مختبر السيناريوهات</h2>
+
+  <p class="section-description">
+    بيئة تجريبية لاختبار استجابة النظام
+    لمواقف السلامة الرقمية، ومتابعة سلوك
+    الوكلاء في سيناريوهات مختلفة.
+  </p>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-box">
+      <span>🧒</span>
+      <h3>Child Safety Scenario</h3>
+      <p>محاكاة طلب مساعدة رقمي.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>📡</span>
+      <h3>Telecom Agent</h3>
+      <p>استعراض قرارات وكيل الاتصالات.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>⚖️</span>
+      <h3>Policy Agent</h3>
+      <p>استعراض الأدلة والقيود التنظيمية.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>⚠️</span>
+      <h3>Failure Simulation</h3>
+      <p>اختبار سلوك النظام عند تعطل بعض الخدمات.</p>
+    </div>
+
+  </div>
+
+  <div class="platform-controls">
+
+  <button
+    type="button"
+    id="run-progressive-scenario"
+    class="primary">
+    ▶ تشغيل السيناريو التدريجي
+  </button>
+
+</div>
+
+<div
+  id="scenario-results"
+  class="platform-results"
+  role="status"
+  aria-live="polite">
+
+  السيناريو جاهز للتشغيل.
+
+</div>
+
+</section>
+
+
+<!-- ====================================== -->
+<!-- PRIVACY CENTER -->
+<!-- ====================================== -->
+
+<section class="card platform-section" id="privacy-center">
+
+  <p class="eyebrow">
+    CHILDNET 360 · PRIVACY BY DESIGN
+  </p>
+
+  <h2>🔒 الخصوصية وحماية البيانات</h2>
+
+  <p class="section-description">
+    CHILDNET 360 نموذج بحثي تجريبي.
+    لا يُستخدم لاستقبال بلاغات حقيقية،
+    ولا ينبغي إدخال بيانات شخصية لأطفال.
+  </p>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-box">
+      <span>🛡️</span>
+      <h3>Data Minimization</h3>
+      <p>تصميم يهدف إلى تقليل البيانات المطلوبة.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🔐</span>
+      <h3>Protected Access</h3>
+      <p>واجهة المراجع تتطلب تصريحًا من الخادم.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>👤</span>
+      <h3>Human Oversight</h3>
+      <p>القرارات الحساسة تتطلب مراجعة بشرية فعلية قبل اعتمادها.</p>
+    </div>
+
+    <div class="dashboard-box">
+      <span>🧪</span>
+      <h3>Synthetic Data</h3>
+      <p>استخدام بيانات تجريبية لاختبار النظام.</p>
+    </div>
+
+  </div>
+
+  <p class="hint">
+    لا يعني إنشاء رقم حالة تجريبي وجود بلاغ رسمي،
+    أو إحالة إلى جهة خارجية،
+    أو متابعة من مختص حقيقي.
+  </p>
+
+</section>
+
+
+<!-- ====================================== -->
+<!-- REVIEWER DASHBOARD -->
+<!-- ====================================== -->
+
+<section class="card platform-section" id="reviewer-dashboard">
+
+  <p class="eyebrow">
+    CHILDNET 360 · HUMAN OVERSIGHT
+  </p>
+
+  <h2>👩‍💻 لوحة المراجع</h2>
+
+  <p class="section-description">
+    لوحة تجريبية مخصصة لاستعراض الحالات
+    التي تتطلب مراجعة بشرية، وتسجيل
+    قرارات المراجع داخل النظام المحلي.
+  </p>
+
+  <div class="reviewer-warning">
+    ⚠️ لوحة تجريبية محلية فقط.
+    لا تدخلي بيانات حقيقية لأطفال.
+  </div>
+
+  <div class="reviewer-form">
+
+    <label for="reviewer-token">
+      Reviewer Access Token / رمز المراجع
+    </label>
+
+    <input
+      type="password"
+      id="reviewer-token"
+      autocomplete="off"
+      placeholder="أدخلي رمز المراجع"
+    >
+
+    <label for="reviewer-name">
+      Reviewer Name / اسم المراجع
+    </label>
+
+    <input
+      type="text"
+      id="reviewer-name"
+      value="Demo Reviewer"
+      maxlength="80"
+    >
+
+    <button
+      type="button"
+      id="reviewer-refresh"
+      class="primary"
+      disabled
+    >
+      🔄 تحديث قائمة المراجعة
+    </button>
+
+    <p class="hint">
+      سيتم تفعيل الزر بعد ربط المصادقة
+      وواجهة المراجعة بالـBackend.
+    </p>
+
+  </div>
+
+  <div
+    id="reviewer-status"
+    class="platform-results"
+    role="status"
+    aria-live="polite"
+  >
+    لوحة المراجع غير متصلة بعد.
+  </div>
+
+  <div id="reviewer-queue"></div>
+
+</section>
+
+    
+    <!-- FOOTER -->
+    <footer class="foot">
+
+      <p>
+        🔒 CHILDNET 360 — نموذج بحثي تجريبي
+        يستخدم بيانات اصطناعية لاختبار وظائف النظام.
+      </p>
+
+      <p class="warn">
+        لا تُستخدم هذه المنصة للإبلاغ عن حالات طوارئ حقيقية.
+        عند وجود خطر مباشر، تواصل مع الجهات المختصة محليًا.
+      </p>
+
+    </footer>
+
+  </main>
+
+
+  <!-- TOAST -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+    hidden>
+  </div>
+
+
+  <!-- JAVASCRIPT -->
+  <script src="app.js"></script>
+
+</body>
+</html>

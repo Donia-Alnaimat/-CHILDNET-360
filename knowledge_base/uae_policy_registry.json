@@ -1,0 +1,57 @@
+[
+  {
+    "document_id": "UAE_CHILD_DIGITAL_SAFETY_2025",
+    "title": "Federal Decree-Law No. 26 of 2025 on Child Digital Safety",
+    "jurisdiction": "UAE_FEDERAL",
+    "authority": "UAE Federal Government",
+    "category": "child_online_safety",
+    "document_type": "legislation",
+    "status": "pending_official_text_verification",
+    "local_file": null,
+    "source_url": "https://uaelegislation.gov.ae/en/legislations/3912"
+  },
+  {
+    "document_id": "UAE_WADEEMA_2016",
+    "title": "Federal Law No. 3 of 2016 on Child Rights",
+    "jurisdiction": "UAE_FEDERAL",
+    "authority": "UAE Federal Government",
+    "category": "child_protection",
+    "document_type": "legislation",
+    "status": "pending_official_text_verification",
+    "local_file": null,
+    "source_url": null
+  },
+  {
+    "document_id": "UAE_PDPL_2021",
+    "title": "Federal Decree-Law No. 45 of 2021 on Personal Data Protection",
+    "jurisdiction": "UAE_FEDERAL",
+    "authority": "UAE Federal Government",
+    "category": "data_privacy",
+    "document_type": "legislation",
+    "status": "pending_official_text_verification",
+    "local_file": null,
+    "source_url": null
+  },
+  {
+    "document_id": "DUBAI_DATA_LAW_2015",
+    "title": "Dubai Law No. 26 of 2015 Regulating Data Dissemination and Exchange",
+    "jurisdiction": "DUBAI",
+    "authority": "Government of Dubai",
+    "category": "data_governance",
+    "document_type": "legislation",
+    "status": "pending_official_text_verification",
+    "local_file": null,
+    "source_url": null
+  },
+  {
+    "document_id": "UAE_TDRA_INTERNET_POLICY",
+    "title": "TDRA Internet Access Policy",
+    "jurisdiction": "UAE_FEDERAL",
+    "authority": "TDRA",
+    "category": "telecommunications",
+    "document_type": "regulatory_policy",
+    "status": "pending_official_text_verification",
+    "local_file": null,
+    "source_url": null
+  }
+]

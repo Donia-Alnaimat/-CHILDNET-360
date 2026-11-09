@@ -1,0 +1,85 @@
+# Local environment package inventory
+installed_packages.txt
+
+# Unrelated Android Studio projects
+AndroidStudioProjects/
+
+# Local databases and temporary files
+*.log
+*.tmp
+
+# Python caches
+__pycache__/
+.ipynb_checkpoints/
+
+# Credentials
+.env
+.env.*
+!.env.example# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.log
+.DS_Store
+Thumbs.db
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+venv/
+.venv/
+env/
+
+.env
+.env.*
+!.env.example
+
+*.log
+*.tmp
+
+installed_packages.txt
+AndroidStudioProjects/
+
+.vscode/
+.idea/
+# Local notebooks - not required to run the website
+*.ipynb
+notebooks/
+
+# Local package inventory
+installed_packages.txt
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Logs and caches
+*.log
+__pycache__/
+.ipynb_checkpoints/
+
+# Unrelated projects
+AndroidStudioProjects/
