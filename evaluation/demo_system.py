@@ -12,7 +12,7 @@ from agents.policy_agent import PolicyAgent
 # CONFIGURATION
 # ==========================================
 
-PROJECT_ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 AUDIT_FILE = (
     PROJECT_ROOT
@@ -47,8 +47,8 @@ class ChildNetCoordinator:
         )
 
         self.privacy_agent = PrivacyAgent(
-    self.kb.search
-)
+            self.kb.search
+        )
 
         self.policy_agent = PolicyAgent(
             self.kb.search

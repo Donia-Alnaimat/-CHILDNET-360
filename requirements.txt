@@ -6,3 +6,6 @@ numpy
 faiss-cpu
 onnxruntime
 tokenizers
+torch
+transformers
+sentence-transformers
